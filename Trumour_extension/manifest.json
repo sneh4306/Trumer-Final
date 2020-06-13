@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "Trumour",
+  "version": "0.1",
+  "description": "Finding Rumours",
+  "icons" : {
+    "128": "logo/128.png"
+  },
+  "browser_action": {
+    "default_icon": "logo/128.png"
+  },
+  "content_scripts": [{
+    "js": ["contentScript.js"],
+    "run_at": "document_end",
+    "matches": ["https://twitter.com/*/status/*"]
+  }],
+  "options_page": "result.html", 
+  "web_accessible_resources": ["logo/16.PNG", "result.html"],
+  "permissions": ["tabs", "webRequest", "storage", "activeTab", "cookies", "https://5000-b75f3c64-430e-49fc-87fd-3661a860b56f.ws-us02.gitpod.io/*", "http://*/*"]
+
+}

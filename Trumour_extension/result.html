@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Trumer-Rumour Detection</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+  <link href="img/favicon.png" rel="icon">
+  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">  
+</head>
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container">
+      <div class="logo float-left">
+        <a href="index.html" class="scrollto"><h2><b>Trumer</b></h2></a>
+      </div>
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="index.html">Home</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <section id="intro" class="clearfix">
+    <form onsubmit="return false">
+    <div class="container">
+      <div class="intro-info" style="margin-left: 25%;">
+        <center>
+          <div class="row">
+           <div class="col-md-10">
+              <input type="text" name="name" class="form-control" id="textb" placeholder="Enter Tweet URL"/>
+          </div>
+          <div class="col-md-2">              
+              <a href="result_page.html" class="btn-services scrollto" type="submit" id="btn_find">Find</a>
+          </div>
+           <script>            
+            var a;             
+            document.getElementById("btn_find").addEventListener("click",function(event){              
+              event.preventDefault();
+              event.stopPropagation();              
+              $('#myModal').modal({backdrop: 'static', keyboard: false, show:true});              
+              var xhttp = new XMLHttpRequest();
+              var tweet = document.getElementById("textb").value
+              xhttp.onreadystatechange = function() 
+              {
+                console.log("onreadystatechange");
+                if(this.readyState == 4 && this.status == 200) 
+                {              
+                  console.log("state changedddd 4 & 200");
+                  a = JSON.parse(this.responseText);
+                  $('#myModal').modal('hide');            
+                  document.getElementById("follow_count").innerHTML = a.followers;
+                  document.getElementById("followin").innerHTML = a.following;
+                  document.getElementById("textb").value = "";
+                  document.getElementById("input_tweet").innerHTML = " "+a.input_tweet;
+                  console.log(a.retweet_count);
+                  console.log(a.isVerified);
+                  document.getElementById("retweet_count").innerHTML = a.retweet_count;
+                  document.getElementById("verified").innerHTML = a.isVerified;
+                  //document.getElementById("tense").innerHTML = a.tense;
+                  var stance_labels = a.stance_labels;
+                  var stance_count = a.stance_count;
+                  //show graph                  
+                  var chart_data =[]
+                  for(let i = 0; i < stance_labels.length; i++){
+                    chart_data.push({
+                      label: stance_labels[i],  y: stance_count[i]
+                    })
+                  }
+                  var chart = new CanvasJS.Chart("chartContainer", {
+                    theme: "light2",
+                      title:{
+                        text: "Stats: Fetch related Tweets"              
+                      },                      
+                      data: [              
+                      {
+                        type: "column",
+                        dataPoints: chart_data
+                      }
+                    ]
+                  });                              
+                  chart.render();                                      
+                }
+              };
+              xhttp.open("POST", " http://127.0.0.1:5000/find/", true);
+              xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+              xhttp.send("tweet="+tweet);
+            });          
+    </script>
+       </div>
+      </center>
+      </div>
+    </div>
+  </form>
+  </section>
+  <main id="main">
+    <section id="about">
+      <div class="container">
+        <header class="section-header">
+          <h3>Results</h3>
+        </header>
+        <div class="row about-container">
+          <div class="col-md-2"></div>
+          <div class="col-md-8">
+          <p><b>Input Tweet:</b><span id = "input_tweet"></span></p>
+          <table class="table table-bordered">            
+            <tbody>
+              <tr>
+                <td>Rumour Probability:</td>
+                <td></td>
+              </tr>
+              <tr>
+                <td>Tense:</td>
+                <td id = "tense"></td>
+              </tr>
+              <tr>
+                <td>Retweet Count:</td>
+                <td id = "retweet_count"></td>
+              </tr>
+              <tr>
+                <td >Followers Count:</td>
+                <td id="follow_count"></td>
+              </tr>
+              <tr>
+                <td>Following Count:</td>
+                <td id="followin"></td>
+              </tr>
+              <tr>
+                <td>Verified Account:</td>
+                <td id="verified"></td>
+              </tr>              
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- Modal -->
+  <div id="myModal" class="modal fade" role="dialog" style="top: 70%; transform: translateY(-50%);">
+    <div class="modal-dialog">
+      <div class="modal-content" style="text-align: center;">
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <lottie-player 
+            src="https://assets2.lottiefiles.com/packages/lf20_lq4Zb5.json"  background="#00ACEE"  speed="2"  style="width: 200px; height: 200px; display: block;  margin-left: auto;  margin-right: auto; margin-top:5%;"  loop  autoplay >
+        </lottie-player>
+        <span><h3> Processing...</h3></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3"></div>    
+    <div class="col-md-6">      
+      <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js">        
+      </script>
+      <div id="chartContainer" style="height: 275px; width: 100%;"></div>
+    </div>
+  </div>
+  <br>
+  <br>
+  <footer id="footer"></footer>
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <script src="lib/jquery/jquery.min.js"></script>
+  <script src="lib/jquery/jquery-migrate.min.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="lib/easing/easing.min.js"></script>
+  <script src="lib/mobile-nav/mobile-nav.js"></script>
+  <script src="lib/wow/wow.min.js"></script>
+  <script src="lib/waypoints/waypoints.min.js"></script>
+  <script src="lib/counterup/counterup.min.js"></script>
+  <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="lib/isotope/isotope.pkgd.min.js"></script>
+  <script src="lib/lightbox/js/lightbox.min.js"></script>
+  <script src="contactform/contactform.js"></script>  
+  <script src="js/main.js"></script>
+</body>
+</html>

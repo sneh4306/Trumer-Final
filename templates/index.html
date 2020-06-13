@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Trumer</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <link href="{{ url_for('static', filename='img/favicon.png') }}" rel="icon">
+  <link href="{{ url_for('static', filename='img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+
+  <link href="{{ url_for('static', filename='lib/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+  <link href="{{ url_for('static', filename='lib/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/animate/animate.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/ionicons/css/ionicons.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='lib/lightbox/css/lightbox.min.css') }}" rel="stylesheet">
+
+  <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+  <header id="header" class="fixed-top">
+    <div class="container">
+
+      <div class="logo float-left">
+        <a href="index.html" class="scrollto"><h2><b>Trumer</b></h2></a>
+      </div>
+
+      <nav class="main-nav float-right d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="#intro">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#team">Team</a></li>
+        </ul>
+      </nav>
+
+    </div>
+  </header>
+  <section id="intro" class="clearfix">
+    <div class="container">
+
+      <div class="intro-img">
+        <img src="img/intro-img.svg" alt="" class="img-fluid">
+      </div>
+
+      <div class="intro-info">
+        <h2>Rumour<br><span>Detection</span><br>on Twitter</h2>
+        <div class="row">
+        	<!-- <div class="col-md-6">
+          		<input type="text" name="name" class="form-control" id="name" placeholder="Enter Tweet URL"/>
+          	</div> -->
+
+          	<div class="col-md-6">
+          		<a href="/results" class="btn-services scrollto">Get Started</a>
+        	</div>
+    	</div>
+      </div>
+
+    </div>
+  </section>
+
+  <main id="main">
+    <section id="about">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>About Us</h3>
+          <p>A rumor/rumour is basically a form of a statement whose legitimacy is not yet confirmed. </p>
+        </header>
+
+        <div class="row about-container">
+
+          <div class="col-lg-6 content order-lg-1 order-2">
+            <p>
+              Rumour gives birth to the spread of misinformation in public. These days we get most of the information about what's happening around the world from various online social media websites. Twitter is one of the most popular platforms, where people tweet about various events. One of the major problem we all face on these social media platforms is “RUMOURS”. There is no authenticity regarding these tweets. 
+            </p>
+
+            <div class="icon-box wow fadeInUp" data-wow-delay="0.4s">
+              <div class="icon"><i class="fa fa-bar-chart"></i></div>
+              <h4 class="title"><a href="https://www.oberlo.in/blog/twitter-statistics">Tweets</a></h4>
+              <p class="description">500 million tweets are sent each day, that equates to 5.787 tweets per second</p>
+            </div>
+
+          </div>
+
+          <div class="col-lg-6 background order-lg-2 order-1 wow fadeInUp">
+            <img src="img/about-img.svg" class="img-fluid" alt="">
+          </div>
+        </div>
+
+        <div class="row about-extra">
+          <div class="col-lg-6 wow fadeInUp">
+            <img src="img/about-extra-1.svg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 wow fadeInUp pt-5 pt-lg-0">
+            <h4>We detect probability of a tweet being a rumour</h4>
+            <p>
+              Each and every tweet has various parametes based on which we can calculate the probability of that tweet being a rumour.
+            </p>
+            <p>
+              We have used various Natural Language Processing techniques to determine the probability value.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="services" class="section-bg">
+      <div class="container">
+
+        <header class="section-header">
+          <h3>Services</h3>
+          <p>Our Application provides various paramenters in the form of API for Developers to build interesting applications using those!</p>
+        </header>
+
+        <div class="row">
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-analytics-outline" style="color: #ff689b;"></i></div>
+              <h4 class="title"><a href="">Rumour Probability</a></h4>
+              <p class="description">Given a tweet, Probability that the Tweet is a Rumour</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-bookmarks-outline" style="color: #e9bf06;"></i></div>
+              <h4 class="title"><a href="">Related Tweets</a></h4>
+              <p class="description">Get all the tweets related to the given input tweet i.e on the same topic </p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-paper-outline" style="color: #3fcdc7;"></i></div>
+              <h4 class="title"><a href="">Retweet Count</a></h4>
+              <p class="description">Get the value of number of times given tweet is retweeted</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.1s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-speedometer-outline" style="color:#41cf2e;"></i></div>
+              <h4 class="title"><a href="">Tense</a></h4>
+              <p class="description">Here, you get the grammatical tense of the given tweet</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-5 offset-lg-1 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-world-outline" style="color: #d6ff22;"></i></div>
+              <h4 class="title"><a href="">Followers count</a></h4>
+              <p class="description">Get Followers count of the user who posted that tweet.</p>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-5 wow bounceInUp" data-wow-delay="0.2s" data-wow-duration="1.4s">
+            <div class="box">
+              <div class="icon"><i class="ion-ios-clock-outline" style="color: #4680ff;"></i></div>
+              <h4 class="title"><a href="">Following count</a></h4>
+              <p class="description">Get Followeing count of the user who posted that tweet.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    
+    <section id="team">
+      <div class="container">
+        <div class="section-header">
+          <h3>Team</h3>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-12 col-md-12 wow fadeInUp">
+                <center>
+                  <h4>Smita Sankhe</h4>
+                  <span>Project Mentor</span>
+                  <div class="social">
+                    <a href=""><i class="fa fa-twitter"></i></a>
+                    <a href=""><i class="fa fa-facebook"></i></a>
+                    <a href=""><i class="fa fa-linkedin"></i></a>
+                  </div>
+                </center>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <center>
+	                <h4>Jaineel Shah</h4>
+	                <span>Team Member</span>
+	                <div class="social">
+	                    <a href=""><i class="fa fa-twitter"></i></a>
+	                    <a href=""><i class="fa fa-facebook"></i></a>
+	                	<a href=""><i class="fa fa-linkedin"></i></a>
+	                </div>
+                </center>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <center>
+	                <h4>Sneh Chitalia</h4>
+	                <span>Team Member</span>
+	                <div class="social">
+	                    <a href=""><i class="fa fa-twitter"></i></a>
+	                    <a href=""><i class="fa fa-facebook"></i></a>
+	                	<a href=""><i class="fa fa-linkedin"></i></a>
+	                </div>
+                </center>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <center>
+	                <h4>Grusha Dharod</h4>
+	                <span>Team Member</span>
+	                <div class="social">
+	                    <a href=""><i class="fa fa-twitter"></i></a>
+	                    <a href=""><i class="fa fa-facebook"></i></a>
+	                	<a href=""><i class="fa fa-linkedin"></i></a>
+	                </div>
+                </center>
+          </div>
+
+          <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <center>
+	                <h4>Harshal Dedhia</h4>
+	                <span>Team Member</span>
+	                <div class="social">
+	                    <a href=""><i class="fa fa-twitter"></i></a>
+	                    <a href=""><i class="fa fa-facebook"></i></a>
+	                	<a href=""><i class="fa fa-linkedin"></i></a>
+	                </div>
+                </center>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer"></footer>
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <script src="{{ url_for('static', filename='lib/jquery/jquery.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/jquery/jquery-migrate.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/easing/easing.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/mobile-nav/mobile-nav.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/wow/wow.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/waypoints/waypoints.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/counterup/counterup.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/owlcarousel/owl.carousel.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/isotope/isotope.pkgd.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='lib/lightbox/js/lightbox.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='contactform/contactform.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+</body>
+</html>

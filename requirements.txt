@@ -1,0 +1,16 @@
+Flask==1.0.2             
+Flask-Cors==3.0.8             
+Flask-RESTful==0.3.7   
+WTForms==2.2.1 
+tweepy==3.8.0 
+pandas==0.24.2   
+nltk==3.2.5 
+fastai==1.0.60    
+requests==2.22.0 
+beautifulsoup4==4.8.2 
+monkeylearn==3.5.2
+bllipparser==2016.9.11 
+sklearn==0.0 
+tensorflow==1.12.0  
+matplotlib==2.1.2 
+gunicorn==20.0.4

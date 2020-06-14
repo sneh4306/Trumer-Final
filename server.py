@@ -31,6 +31,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import time
+import lxml
 
 #final model
 import pickle
@@ -262,21 +263,41 @@ class Trumer(Resource):
 		url= request.form['tweet']
 		print("recieved: "+url)
 
-		page = requests.get(url)		
-		soup = BeautifulSoup(page.content, 'html.parser')
-		title = soup.title.text
-		text = re.sub(r'^https?:\/\/.*[\r\n]*', '', title, flags=re.MULTILINE)
-		tweet=text.split('"')
-		print(tweet)
-		orig_tweet=tweet[1]		
-		print(orig_tweet)
-		try:
-			retweets = soup.find('li', {'class': 'js-stat-count js-stat-retweets stat-count'}).find('a').get('data-activity-popup-title')
-			print(retweets.split()[0])
-			retweets = retweets.split()[0]
-		except:
-			retweets = 0
-			print(retweets)
+		#page = requests.get(url)
+		#print(page.text)		
+		#soup = bs4.BeautifulSoup(page.content, 'html.parser')
+		#print(soup.prettify())
+		#print(list(soup.children))
+		#print(type(soup))
+		#title = soup.title.text
+		#print(title)
+		#text = re.sub(r'^https?:\/\/.*[\r\n]*', '', title, flags=re.MULTILINE)
+		#tweet=text.split('"')
+		#print(tweet)
+		#orig_tweet=tweet[1]		
+		#print(orig_tweet)
+		# try:
+		# 	retweets = soup.find('li', {'class': 'js-stat-count js-stat-retweets stat-count'}).find('a').get('data-activity-popup-title')
+		# 	print(retweets.split()[0])
+		# 	retweets = retweets.split()[0]
+		# except:
+		# 	retweets = 0
+		# 	print(retweets)
+		
+		t=url.split("/")
+		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+		auth.set_access_token(access_token, access_token_secret)
+		api = tweepy.API(auth)
+
+		tweet = api.get_status(t[5])
+		orig_tweet=tweet.text
+		retweets=str(tweet.retweet_count)
+		followers_count=str(tweet.user.followers_count)
+		verified=tweet.user.verified
+		following_count=str(tweet.user.friends_count)
+
+		#t_final = t[0]+"//"+t[2]+"/"+t[3]
+
 		
 		if("#" in orig_tweet  or proper_noun(orig_tweet)):
 			print("Using Hashtag Method")
@@ -314,7 +335,7 @@ class Trumer(Resource):
 		print("processing done")
 
 		file_to_save="predicted.tsv"
-		input_data.to_csv(file_to_save, sep='\t', index=True,header=['Target', 'Tweet', 'Stance','isVerified'], index_label='ID')
+		input_data.to_csv(file_to_save, sep='\t', index=True,header=['Target', 'Tweet', 'isVerified','Stance'], index_label='ID')
 
 		verifiedInFor = 0
 		verifiedInAgainst = 0
@@ -327,31 +348,31 @@ class Trumer(Resource):
 
 		print(verifiedInFor)
 		print(verifiedInAgainst)
+		
 		global x
-
 		x["input_tweet"]=orig_tweet
-		t=url.split("/")
-		t_final = t[0]+"//"+t[2]+"/"+t[3]
-		print(t[3])
 
-		auth = tweepy.OAuthHandler(consumer_key, consumer_secret)  
-		auth.set_access_token(access_token, access_token_secret)
-		api = tweepy.API(auth)
-		verified = api.get_user(t[3]).verified
+		
+		#print(t[3])
+
+		# auth = tweepy.OAuthHandler(consumer_key, consumer_secret)  
+		# auth.set_access_token(access_token, access_token_secret)
+		# api = tweepy.API(auth)
+		# verified = api.get_user(t[3]).verified
 		x["isVerified"] = verified
 
-		temp = requests.get(t_final)
-		bs = BeautifulSoup(temp.text,'lxml')
-		try:
-			follow_box = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--followers'})
-			follow_box1 = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--following'})
-			followers = follow_box.find('a').find('span',{'class':'ProfileNav-value'})
-			following = follow_box1.find('a').find('span',{'class':'ProfileNav-value'})
-			x["followers"]=followers.get('data-count')
-			x["following"]=following.get('data-count')
-			print(x["following"]+"\n"+x["followers"])
-		except:
-			print('Account name not found...')
+		# temp = requests.get(t_final)
+		# bs = BeautifulSoup(temp.text,'lxml')
+		
+			# follow_box = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--followers'})
+			# follow_box1 = bs.find('li',{'class':'ProfileNav-item ProfileNav-item--following'})
+			# followers = follow_box.find('a').find('span',{'class':'ProfileNav-value'})
+			# following = follow_box1.find('a').find('span',{'class':'ProfileNav-value'})
+		x["followers"]=followers_count
+		x["following"]=following_count
+		print(x["following"]+"\n"+x["followers"])
+		#except:
+		#	print('Account name not found...')
 		
 		x["tense"] = tweet_tense(orig_tweet)
 		objects = objects.tolist()
